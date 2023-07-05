@@ -1,5 +1,4 @@
 
-
 using MediatR;
 using Domain;
 using Persistence;
@@ -12,7 +11,6 @@ namespace Application.Activities
 {
     public class Create
     {
-
 
         public class Command : IRequest<Result<Unit>>
         {
@@ -27,7 +25,6 @@ namespace Application.Activities
                 RuleFor(x => x.Activity).SetValidator(new ActivityValidator());
             }
         }
-
 
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
