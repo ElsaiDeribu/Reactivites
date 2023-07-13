@@ -74,7 +74,7 @@ export default function TestErrors() {
           <Button onClick={handleBadGuid} content="Bad Guid" basic primary />
         </Button.Group>
       </Segment>
-      {errors && <ValidationError errors={errors}/>}
+      {errors && <ValidationError errors={errors} />}
     </>
   );
 }

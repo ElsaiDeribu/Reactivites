@@ -15,9 +15,10 @@ export default observer(function ActivityListItemAttendee({
   return (
     <List horizontal>
       {attendees.map((attendee) => (
-        <Popup hoverable key={attendee.username}
-          trigger =
-          {
+        <Popup
+          hoverable
+          key={attendee.username}
+          trigger={
             <List.Item
               key={attendee.username}
               as={Link}
@@ -29,7 +30,8 @@ export default observer(function ActivityListItemAttendee({
                 src={attendee.image || "/assets/user.png"}
               />
             </List.Item>
-          }>
+          }
+        >
           <Popup.Content>
             <ProfileCard profile={attendee} />
           </Popup.Content>
