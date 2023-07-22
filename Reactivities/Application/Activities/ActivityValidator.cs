@@ -1,5 +1,3 @@
-
-
 using Domain;
 using FluentValidation;
 
@@ -16,6 +14,5 @@ namespace Application.Activities
             RuleFor(x => x.City).NotEmpty();
             RuleFor(x => x.Venue).NotEmpty();
         }
-
     }
 }

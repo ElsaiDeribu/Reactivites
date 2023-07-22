@@ -1,9 +1,6 @@
+using Application.Core;
 using MediatR;
 using Persistence;
-using Application.Core;
-
-
-
 
 namespace Application.Activities
 {
@@ -11,12 +8,8 @@ namespace Application.Activities
     {
         public class Command : IRequest<Result<Unit>>
         {
-
             public Guid Id { get; set; }
-
         }
-
-
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
@@ -29,11 +22,9 @@ namespace Application.Activities
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-
                 var activity = await _context.Activities.FindAsync(request.Id);
 
                 if (activity == null) return null;
-
 
                 _context.Remove(activity);
 
@@ -44,8 +35,5 @@ namespace Application.Activities
                 return Result<Unit>.Success(Unit.Value);
             }
         }
-
-
-
     }
 }

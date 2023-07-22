@@ -1,5 +1,7 @@
-
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Application.Core;
 using Application.Interfaces;
 using MediatR;
@@ -10,17 +12,17 @@ namespace Application.Photos
 {
     public class SetMain
     {
-        public class Command : MediatR.IRequest<Core.Result<MediatR.Unit>>
+        public class Command : IRequest<Result<Unit>>
         {
             public string Id { get; set; }
         }
 
-
-        public class Hanlder : IRequestHandler<Command, Result<Unit>>
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
-            private readonly Persistence.DataContext _context;
-            private readonly Application.Interfaces.IUserAccessor _userAccessor;
-            public Hanlder(DataContext context, IUserAccessor userAccessor)
+            private readonly DataContext _context;
+            private readonly IUserAccessor _userAccessor;
+
+            public Handler(DataContext context, IUserAccessor userAccessor)
             {
                 _userAccessor = userAccessor;
                 _context = context;
@@ -28,10 +30,9 @@ namespace Application.Photos
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users.Include(p => p.Photos)
-                .FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
-
-                if (user == null) return null;
+                var user = await _context.Users
+                    .Include(p => p.Photos)
+                    .FirstOrDefaultAsync(x => x.UserName == _userAccessor.GetUsername());
 
                 var photo = user.Photos.FirstOrDefault(x => x.Id == request.Id);
 
@@ -42,12 +43,11 @@ namespace Application.Photos
                 if (currentMain != null) currentMain.IsMain = false;
 
                 photo.IsMain = true;
-
                 var success = await _context.SaveChangesAsync() > 0;
+
                 if (success) return Result<Unit>.Success(Unit.Value);
 
                 return Result<Unit>.Failure("Problem setting main photo");
-
             }
         }
     }

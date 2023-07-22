@@ -1,8 +1,6 @@
-
-
 namespace Application.Photos
 {
-    public class PhotoUploadReult
+    public class PhotoUploadResult
     {
         public string PublicId { get; set; }
         public string Url { get; set; }

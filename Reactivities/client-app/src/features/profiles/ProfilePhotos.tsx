@@ -12,7 +12,6 @@ import {
 import { Photo, Profile } from "../../app/models/profile";
 import { useStore } from "../../app/stores/store";
 import PhotoUploadWidget from "../../app/common/imageUpload/PhotoUploadWidget";
-import { set } from "date-fns";
 
 interface Props {
   profile: Profile;
