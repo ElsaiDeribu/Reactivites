@@ -10,6 +10,8 @@ using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables("A2SV_PORTAL_");
+
 // Add services to the container.
 
 builder.Services.AddControllers(opt => 
